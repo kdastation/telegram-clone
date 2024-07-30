@@ -1,5 +1,10 @@
+import { QueryClientProvider } from './providers/QueryClientProvider'
 import { RouterProvider } from './providers/RouterProvider'
 
 export const RootProvider = () => {
-  return <RouterProvider />
+  return (
+    <QueryClientProvider>
+      <RouterProvider />
+    </QueryClientProvider>
+  )
 }
