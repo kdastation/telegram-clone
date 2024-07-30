@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet, redirect } from 'react-router-dom'
 
+import { AuthPage } from '@pages/Auth'
 import { MainPage } from '@pages/Main'
 
 import { PrivateRoute } from '../components/PrivateRoute'
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      { path: '/login', element: <div>login</div> },
+      { path: '/login', element: <AuthPage /> },
     ],
   },
   {

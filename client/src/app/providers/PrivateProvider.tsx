@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import { useGetUserId } from '@entities/Session'
+
 import { SocketProvider } from '@shared/lib/socket'
 
 type Props = {
@@ -7,5 +9,7 @@ type Props = {
 }
 
 export const PrivateProvider = ({ children }: Props) => {
-  return <SocketProvider clientId={'1'}>{children}</SocketProvider>
+  const userId = useGetUserId()
+
+  return <SocketProvider clientId={userId || ''}>{children}</SocketProvider>
 }
