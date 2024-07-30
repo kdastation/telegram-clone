@@ -15,7 +15,7 @@ export function SocketProvider({
   clientId: string
 }) {
   const [socket] = useState(() =>
-    io('ws://localhost:5000', {
+    io('http://localhost:5000', {
       auth: {
         clientId,
       },

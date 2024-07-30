@@ -3,6 +3,7 @@ import cors from 'cors'
 import http from 'http'
 import { faker } from '@faker-js/faker'
 const router = express.Router()
+import { Server } from 'socket.io'
 
 const createDialog = (id) => {
   return {
@@ -37,6 +38,31 @@ router.get('/dialogs', (req, res) => {
   return res.json({ results: [createDialog('1')] })
 })
 
+const app = express()
+
+app.use(cors({ origin: '*' }))
+app.use(express.json())
+app.use('/api', router)
+
+const server = http.createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+})
+
+io.on('connection', (socket) => {
+  const clientId = socket.handshake.auth.clientId
+
+  socket.join(clientId)
+})
+
+server.listen(5000, () => {
+  console.log('Server running on port 5000.')
+})
+
 router.post('/messages', (req, res) => {
   const body = req.body
 
@@ -47,17 +73,7 @@ router.post('/messages', (req, res) => {
     user: '1',
   }
 
+  io.to(newMessage.user).emit('new-message', newMessage)
+
   return res.json({ status: 'ok', data: newMessage })
-})
-
-const app = express()
-
-app.use(cors({ origin: '*' }))
-app.use(express.json())
-app.use('/api', router)
-
-const server = http.createServer(app)
-
-app.listen(5000, () => {
-  console.log('Server running on port 5000.')
 })
