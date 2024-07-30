@@ -1,21 +1,30 @@
-const express = require('express')
-const cors = require('cors')
-const http = require('http')
+import express from 'express'
+import cors from 'cors'
+import http from 'http'
 const router = express.Router()
 
-router.get('/dialogs', (req, res) => {
+const createDialog = (id) => {
+  return {
+    id: id,
+    receiver: {
+      id: '1',
+      name: `John ${id}`,
+    },
+  }
+}
 
-    return res.json({message: 'Welcome to the server!'})
+router.get('/dialogs', (req, res) => {
+  return res.json({ results: [createDialog('1'), createDialog('2'), createDialog('3')] })
 })
 
 const app = express()
 
-app.use(cors({origin: '*'}))
+app.use(cors({ origin: '*' }))
 app.use(express.json())
 app.use('/api', router)
 
 const server = http.createServer(app)
 
 app.listen(5000, () => {
-    console.log('Server running on port 5000.')
+  console.log('Server running on port 5000.')
 })
