@@ -3,15 +3,16 @@ import { RoutesApi } from '@shared/consts/RoutesApi'
 
 import { useQuery } from '@tanstack/react-query'
 
-const baseKey = 'messages'
+const baseKey = ['messages']
 
-type Message = {
+export type Message = {
   text: string
   id: string
   user: string
+  dialogId: string
 }
 
-type Response = {
+export type Response = {
   results: Message[]
 }
 

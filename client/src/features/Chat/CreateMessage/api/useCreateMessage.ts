@@ -12,7 +12,7 @@ export const useCreateMessage = () => {
   return useMutation({
     mutationFn: async (values: Args) => {
       await api.request({
-        url: RoutesApi.MESSAGES,
+        url: RoutesApi.CREATE_MESSAGE,
         method: 'POST',
         data: values,
       })
