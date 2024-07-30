@@ -83,6 +83,8 @@ router.post('/messages', (req, res) => {
     user: '1',
   }
 
+  messages.push(newMessage)
+
   const dialog = dialogRepository.getById(body.dialogId)
 
   if (dialog) {
