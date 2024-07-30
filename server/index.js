@@ -19,6 +19,16 @@ const createDialog = (id) => {
   }
 }
 
+const dialogs = [createDialog('1')]
+
+class DialogRepository {
+  getById(id) {
+    return dialogs.find((dialog) => dialog.id === id)
+  }
+}
+
+const dialogRepository = new DialogRepository()
+
 const messages = [
   {
     id: '1',
@@ -35,7 +45,7 @@ router.get('/messages/:id', (req, res) => {
 })
 
 router.get('/dialogs', (req, res) => {
-  return res.json({ results: [createDialog('1')] })
+  return res.json({ results: dialogs })
 })
 
 const app = express()
@@ -73,7 +83,12 @@ router.post('/messages', (req, res) => {
     user: '1',
   }
 
-  io.to(newMessage.user).emit('new-message', newMessage)
+  const dialog = dialogRepository.getById(body.dialogId)
+
+  if (dialog) {
+    io.to(dialog.receiver.id).emit('new-message', newMessage)
+    io.to(dialog.sender.id).emit('new-message', newMessage)
+  }
 
   return res.json({ status: 'ok', data: newMessage })
 })
