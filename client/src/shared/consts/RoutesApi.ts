@@ -1,4 +1,4 @@
 export const RoutesApi = {
   DIALOGS: '/dialogs',
-  MESSAGES: '/messages',
+  MESSAGES: (dialogId: string) => `/messages/${dialogId}`,
 }

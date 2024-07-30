@@ -1,5 +1,7 @@
 import { CreateMessage } from '@features/Chat/CreateMessage'
 
+import { useGetMessages } from '@entities/Message'
+
 import { useSocketHandler } from '@shared/lib/socket'
 
 export const MainPage = () => {
@@ -7,6 +9,10 @@ export const MainPage = () => {
     //eslint-disable-next-line
     console.log('new message', message)
   })
+
+  const { data } = useGetMessages('1')
+  //eslint-disable-next-line
+  console.log('messages', data)
 
   return (
     <div>
