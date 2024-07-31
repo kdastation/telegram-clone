@@ -1,52 +1,16 @@
-import { CreateMessage } from '@features/Chat/CreateMessage'
+import { useState } from 'react'
+
+import { Chat } from '@features/Chat'
 import { ListDialogs } from '@features/Dialog/List'
 
-import { Message, Response, useGetMessages } from '@entities/Message'
-
-import { useSocketHandler } from '@shared/lib/socket'
-
-import { useQueryClient } from '@tanstack/react-query'
-
-const useSocketMessages = () => {
-  const queryClient = useQueryClient()
-  useSocketHandler('new-message', async (newMessage: Message) => {
-    queryClient.setQueriesData<Response>(
-      {
-        queryKey: ['messages', newMessage.dialogId],
-      },
-      (data) => {
-        if (!data) {
-          return
-        }
-
-        return {
-          results: [...data.results, newMessage],
-        }
-      }
-    )
-  })
-}
-
 export const MainPage = () => {
-  useSocketMessages()
-  const { data } = useGetMessages('1')
-  //eslint-disable-next-line
-  console.log('messages', data)
-
-  const messages = data?.results || []
+  const [selectedDialog, setSelectedDialog] = useState<string | null>(null)
 
   return (
     <div>
-      <ListDialogs onSelect={() => {}} />
-      {messages.map((message) => {
-        return (
-          <div>
-            {message.text}
-            {message.user}
-          </div>
-        )
-      })}
-      <CreateMessage dialogId={'1'} />
+      <ListDialogs onSelect={(id) => setSelectedDialog(id)} />
+
+      {selectedDialog && <Chat dialogId={selectedDialog} />}
     </div>
   )
 }
