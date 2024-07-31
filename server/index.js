@@ -9,6 +9,7 @@ import { ErrorMiddleware } from './middlewares/ErrorMiddleware.js'
 import { AuthMiddleware } from './middlewares/AuthMiddleware.js'
 
 import cookieParser from 'cookie-parser'
+import { dialogController } from './controllers/DialogController.js'
 
 const createDialog = (id) => {
   return {
@@ -47,10 +48,6 @@ router.get('/messages/:id', (req, res) => {
   const id = req.params.id
 
   return res.json({ results: messages })
-})
-
-router.get('/dialogs', AuthMiddleware, (req, res) => {
-  return res.json({ results: dialogs })
 })
 
 const app = express()
@@ -103,3 +100,4 @@ router.post('/messages', AuthMiddleware, (req, res) => {
 })
 
 router.post('/login', userController.login)
+router.get('/dialogs', AuthMiddleware, dialogController.getAll)

@@ -4,13 +4,13 @@ const users = [
   {
     firstName: 'John',
     lastName: 'Doe',
-    id: faker.string.uuid(),
+    id: '1',
     email: 'john@gmail.com',
   },
   {
     firstName: 'Tom',
     lastName: 'Kek',
-    id: faker.string.uuid(),
+    id: '2',
     email: 'tom@gmail.com',
   },
 ]
