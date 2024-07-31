@@ -1,4 +1,5 @@
 import { CreateMessage } from '@features/Chat/CreateMessage'
+import { ListDialogs } from '@features/Dialog/List'
 
 import { Message, Response, useGetMessages } from '@entities/Message'
 
@@ -36,6 +37,7 @@ export const MainPage = () => {
 
   return (
     <div>
+      <ListDialogs onSelect={() => {}} />
       {messages.map((message) => {
         return (
           <div>
