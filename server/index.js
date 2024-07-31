@@ -11,6 +11,7 @@ import { AuthMiddleware } from './middlewares/AuthMiddleware.js'
 import cookieParser from 'cookie-parser'
 import { dialogController } from './controllers/DialogController.js'
 import { dialogRepository } from './repositories/DialogRepository.js'
+import { messagesController } from './controllers/MessagesController.js'
 
 const messages = [
   {
@@ -20,12 +21,6 @@ const messages = [
     user: '1',
   },
 ]
-
-router.get('/messages/:id', (req, res) => {
-  const id = req.params.id
-
-  return res.json({ results: messages })
-})
 
 const app = express()
 
@@ -79,3 +74,4 @@ router.post('/messages', AuthMiddleware, (req, res) => {
 router.post('/login', userController.login)
 router.get('/dialogs', AuthMiddleware, dialogController.getAll)
 router.get('/me', AuthMiddleware, userController.me)
+router.get('/messages/:id', AuthMiddleware, messagesController.getAllByDialog)
