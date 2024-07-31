@@ -2,7 +2,7 @@ import { ApiError } from '../exceptions/ApiError.js'
 
 export const AuthMiddleware = (request, response, next) => {
   try {
-    const { token } = request.cookies
+    const token = request.headers.authorization
 
     if (!token) {
       return next(ApiError.UnauthorizedError())

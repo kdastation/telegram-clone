@@ -1,22 +1,27 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useSetUserId } from '@entities/Session'
+import { useLogin } from '../api/useLogin'
 
 export const Login = () => {
   const navigate = useNavigate()
-  const setUserIdSession = useSetUserId()
 
-  const [userId, setUserId] = useState<string>('')
+  const { mutateAsync: login } = useLogin()
 
-  const handleLogin = () => {
-    setUserIdSession(userId)
-    navigate('/')
+  const [email, setEmail] = useState<string>('')
+
+  const handleLogin = async () => {
+    try {
+      await login({ email })
+      navigate('/')
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (
     <div>
-      <input type='text' value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} />
       <button onClick={handleLogin}>login</button>
     </div>
   )

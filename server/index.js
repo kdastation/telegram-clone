@@ -10,30 +10,7 @@ import { AuthMiddleware } from './middlewares/AuthMiddleware.js'
 
 import cookieParser from 'cookie-parser'
 import { dialogController } from './controllers/DialogController.js'
-
-const createDialog = (id) => {
-  return {
-    id: id,
-    receiver: {
-      id: '1',
-      name: `John ${id}`,
-    },
-    sender: {
-      id: '2',
-      name: `Tom ${id}`,
-    },
-  }
-}
-
-const dialogs = [createDialog('1')]
-
-class DialogRepository {
-  getById(id) {
-    return dialogs.find((dialog) => dialog.id === id)
-  }
-}
-
-const dialogRepository = new DialogRepository()
+import { dialogRepository } from './repositories/DialogRepository.js'
 
 const messages = [
   {
@@ -84,7 +61,7 @@ router.post('/messages', AuthMiddleware, (req, res) => {
     id: faker.string.uuid(),
     dialogId: body.dialogId,
     text: body.text,
-    user: '1',
+    user: req.user.id,
   }
 
   messages.push(newMessage)
@@ -92,8 +69,8 @@ router.post('/messages', AuthMiddleware, (req, res) => {
   const dialog = dialogRepository.getById(body.dialogId)
 
   if (dialog) {
-    io.to(dialog.receiver.id).emit('new-message', newMessage)
-    io.to(dialog.sender.id).emit('new-message', newMessage)
+    io.to(dialog.author).emit('new-message', newMessage)
+    io.to(dialog.partner).emit('new-message', newMessage)
   }
 
   return res.json({ status: 'ok', data: newMessage })

@@ -6,6 +6,9 @@ class DialogRepository {
       return dialog.author === userId || dialog.partner === userId
     })
   }
+  getById(id) {
+    return db.dialogs.find((dialog) => dialog.id === id)
+  }
 }
 
 export const dialogRepository = new DialogRepository()
