@@ -4,15 +4,15 @@ import { AuthPage } from '@pages/Auth'
 import { MainPage } from '@pages/Main'
 
 import { PrivateRoute } from '../components/PrivateRoute'
-import { AppProvider } from '../providers/AppProvider'
+import { AppLoader } from '../loaders/AppLoader'
 import { PrivateProvider } from '../providers/PrivateProvider'
 
 export const router = createBrowserRouter([
   {
     element: (
-      <AppProvider>
+      <AppLoader>
         <Outlet />
-      </AppProvider>
+      </AppLoader>
     ),
     children: [
       {
@@ -32,9 +32,9 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      { path: '/login', element: <AuthPage /> },
     ],
   },
+  { path: '/login', element: <AuthPage /> },
   {
     path: '*',
     loader: () => redirect('/'),

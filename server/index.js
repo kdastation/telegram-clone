@@ -78,3 +78,4 @@ router.post('/messages', AuthMiddleware, (req, res) => {
 
 router.post('/login', userController.login)
 router.get('/dialogs', AuthMiddleware, dialogController.getAll)
+router.get('/me', AuthMiddleware, userController.me)

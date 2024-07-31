@@ -33,7 +33,7 @@ export class HttpClient {
       ...args,
       data: body,
       headers: {
-        Authorization: `${this.accessToken}`,
+        Authorization: this.accessToken,
       },
     })
 

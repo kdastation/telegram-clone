@@ -1,4 +1,5 @@
 import { userService } from '../services/UserService.js'
+import { userRepository } from '../repositories/UserRepository.js'
 
 class UserController {
   login(request, response, next) {
@@ -15,6 +16,17 @@ class UserController {
       return response.json(userData)
     } catch (error) {
       next(error)
+    }
+  }
+
+  me(request, response, next) {
+    try {
+      console.log(request.user)
+      const user = userRepository.getById(request.user.id)
+
+      return response.json({ alo: 'asdsa' })
+    } catch (e) {
+      next(e)
     }
   }
 }

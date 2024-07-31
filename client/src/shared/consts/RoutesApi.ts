@@ -3,4 +3,5 @@ export const RoutesApi = {
   MESSAGES: (dialogId: string) => `/messages/${dialogId}`,
   CREATE_MESSAGE: '/messages',
   LOGIN: '/login',
+  ME: '/me',
 }
