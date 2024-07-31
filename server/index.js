@@ -4,6 +4,9 @@ import http from 'http'
 import { faker } from '@faker-js/faker'
 const router = express.Router()
 import { Server } from 'socket.io'
+import { userController } from './controllers/UserContoller.js'
+import { ErrorMiddleware } from './middlewares/ErrorMiddleware.js'
+import { AuthMiddleware } from './middlewares/AuthMiddleware.js'
 
 const createDialog = (id) => {
   return {
@@ -44,7 +47,7 @@ router.get('/messages/:id', (req, res) => {
   return res.json({ results: messages })
 })
 
-router.get('/dialogs', (req, res) => {
+router.get('/dialogs', AuthMiddleware, (req, res) => {
   return res.json({ results: dialogs })
 })
 
@@ -53,6 +56,7 @@ const app = express()
 app.use(cors({ origin: '*' }))
 app.use(express.json())
 app.use('/api', router)
+app.use(ErrorMiddleware)
 
 const server = http.createServer(app)
 
@@ -73,7 +77,7 @@ server.listen(5000, () => {
   console.log('Server running on port 5000.')
 })
 
-router.post('/messages', (req, res) => {
+router.post('/messages', AuthMiddleware, (req, res) => {
   const body = req.body
 
   const newMessage = {
@@ -94,3 +98,5 @@ router.post('/messages', (req, res) => {
 
   return res.json({ status: 'ok', data: newMessage })
 })
+
+router.post('/login', userController.login)
