@@ -2,19 +2,18 @@ import { ApiError } from '../exceptions/ApiError.js'
 
 export const AuthMiddleware = (request, response, next) => {
   try {
-    console.log(request)
-    const token = '1'
-
-    console.log(token, 'token epta blya')
+    const { token } = request.cookies
 
     if (!token) {
       return next(ApiError.UnauthorizedError())
     }
 
-    request.user = token
+    request.user = {
+      id: token,
+    }
+
     next()
   } catch (error) {
-    console.log('token epta blya')
     next(ApiError.UnauthorizedError())
   }
 }

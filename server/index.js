@@ -8,6 +8,8 @@ import { userController } from './controllers/UserContoller.js'
 import { ErrorMiddleware } from './middlewares/ErrorMiddleware.js'
 import { AuthMiddleware } from './middlewares/AuthMiddleware.js'
 
+import cookieParser from 'cookie-parser'
+
 const createDialog = (id) => {
   return {
     id: id,
@@ -55,6 +57,7 @@ const app = express()
 
 app.use(cors({ origin: '*' }))
 app.use(express.json())
+app.use(cookieParser())
 app.use('/api', router)
 app.use(ErrorMiddleware)
 
