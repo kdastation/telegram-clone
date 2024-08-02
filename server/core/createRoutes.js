@@ -10,5 +10,6 @@ export const createRoutes = (router, socket) => {
   router.get('/dialogs', AuthMiddleware, dialogController.getAll)
   router.get('/me', AuthMiddleware, userController.me)
   router.post('/messages', AuthMiddleware, messagesController.create)
+  router.delete('/messages/:id', AuthMiddleware, messagesController.delete)
   router.get('/messages/:id', AuthMiddleware, messagesController.getAllByDialog)
 }

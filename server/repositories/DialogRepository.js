@@ -7,6 +7,7 @@ class DialogRepository {
     })
   }
   getById(id) {
+    console.log(db.dialogs, id)
     return db.dialogs.find((dialog) => dialog.id === id)
   }
 }

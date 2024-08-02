@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { Message, Response, useGetMessages } from '@entities/Message'
 
 import { useSocketHandler } from '@shared/lib/socket'
@@ -22,13 +24,32 @@ const useSocketMessages = () => {
       }
     )
   })
+
+  useSocketHandler('remove-message', async (deletedMessage: Message) => {
+    console.log(deletedMessage)
+    queryClient.setQueriesData<Response>(
+      {
+        queryKey: ['messages', deletedMessage.dialogId],
+      },
+      (data) => {
+        if (!data) {
+          return
+        }
+
+        return {
+          results: data.results.filter((msg) => msg.id !== deletedMessage.id),
+        }
+      }
+    )
+  })
 }
 
 type Props = {
   dialogId: string
+  renderAddonRightMessage?: (messageId: string) => ReactNode
 }
 
-export const Messages = ({ dialogId }: Props) => {
+export const Messages = ({ dialogId, renderAddonRightMessage }: Props) => {
   useSocketMessages()
   const { data } = useGetMessages(dialogId)
 
@@ -41,6 +62,7 @@ export const Messages = ({ dialogId }: Props) => {
           <div>
             {message.text}
             {message.user}
+            {renderAddonRightMessage?.(message.id)}
           </div>
         )
       })}
