@@ -1,6 +1,12 @@
 import { messagesRepository } from '../repositories/MessagesRepository.js'
+import { faker } from '@faker-js/faker'
+import { dialogRepository } from '../repositories/DialogRepository.js'
 
-class MessagesController {
+export class MessagesController {
+  constructor(socket) {
+    this.socket = socket
+  }
+
   getAllByDialog(request, response, next) {
     try {
       const id = request.params.id
@@ -13,7 +19,27 @@ class MessagesController {
     }
   }
 
-  create() {}
-}
+  create = (request, response, next) => {
+    try {
+      const body = request.body
 
-export const messagesController = new MessagesController()
+      const newMessage = {
+        id: faker.string.uuid(),
+        dialogId: body.dialogId,
+        text: body.text,
+        user: request.user.id,
+      }
+
+      const dialog = dialogRepository.getById(body.dialogId)
+
+      if (dialog) {
+        this.socket.to(dialog.author).emit('new-message', newMessage)
+        this.socket.to(dialog.partner).emit('new-message', newMessage)
+      }
+
+      return response.json({ status: 'ok', data: newMessage })
+    } catch (e) {
+      next(e)
+    }
+  }
+}
