@@ -1,0 +1,9 @@
+@import 'variables/global';
+@import 'variables/fonts';
+
+body,
+html {
+  font: var(--font-text-default);
+  background-color: var(--color-background);
+  color: var(--color-text);
+}

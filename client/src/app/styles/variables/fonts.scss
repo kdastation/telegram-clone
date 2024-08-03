@@ -1,0 +1,70 @@
+:root {
+  --font-family-main: system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Apple Color Emoji',
+    'Helvetica Neue', sans-serif;
+
+  // Headings.H-1
+  --font-size-headings-h-1: 36px;
+  --font-line-headings-h-1: 42px;
+  --font-headings-h-1: 700 var(--font-size-headings-h-1) / var(--font-line-headings-h-1)
+    var(--font-family-main);
+
+  // Headings.H-2
+  --font-size-headings-h-2: 24px;
+  --font-line-headings-h-2: 28px;
+  --font-headings-h-2: 700 var(--font-size-headings-h-2) / var(--font-line-headings-h-2)
+    var(--font-family-main);
+
+  // Headings.H-3
+  --font-size-headings-h-3: 20px;
+  --font-line-headings-h-3: 24px;
+  --font-headings-h-3: 700 var(--font-size-headings-h-3) / var(--font-line-headings-h-3)
+    var(--font-family-main);
+
+  // headings.subheading
+  --font-size-headings-subheading: 16px;
+  --font-line-headings-subheading: 20px;
+  --font-headings-subheading: 700 var(--font-size-headings-subheading) /
+    var(--font-line-headings-subheading) var(--font-family-main);
+
+  // Accent.Button
+  --font-size-accent-button: 16px;
+  --font-line-accent-button: 24px;
+  --font-accent-button: 700 var(--font-size-accent-button) / var(--font-line-accent-button)
+    var(--font-family-main);
+
+  // Accent.Small
+  --font-size-accent-small: 14px;
+  --font-line-accent-small: 20px;
+  --font-accent-small: 700 var(--font-size-accent-small) / var(--font-line-accent-small)
+    var(--font-family-main);
+
+  // Accent.XS
+  --font-size-accent-xs: 12px;
+  --font-line-accent-xs: 16px;
+  --font-accent-xs: 700 var(--font-size-accent-xs) / var(--font-line-accent-xs)
+    var(--font-family-main);
+
+  // Text.default
+  --font-size-text-default: 16px;
+  --font-line-text-default: 24px;
+  --font-text-default: 400 var(--font-size-text-default) / var(--font-line-text-default)
+    var(--font-family-main);
+
+  // Text.Helptext
+  --font-size-text-helptext: 14px;
+  --font-line-text-helptext: 20px;
+  --font-text-helptext: 400 var(--font-size-text-helptext) / var(--font-line-text-helptext)
+    var(--font-family-main);
+
+  // Text.Footnote
+  --font-size-text-footnote: 12px;
+  --font-line-text-footnote: 16px;
+  --font-text-footnote: 400 var(--font-size-text-footnote) / var(--font-line-text-footnote)
+    var(--font-family-main);
+
+  // Links.external-hover
+  --font-size-links-external-hover: 16px;
+  --font-line-links-external-hover: 24px;
+  --font-links-external-hover: 400 var(--font-size-links-external-hover) /
+    var(--font-line-links-external-hover) var(--font-family-main);
+}

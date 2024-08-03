@@ -1,5 +1,7 @@
 import { useGetDialogs } from '@entities/Dialog'
 
+import { DialogCard } from './DialogCard'
+
 type Props = {
   onSelect: (id: string) => void
 }
@@ -16,7 +18,13 @@ export const ListDialogs = ({ onSelect }: Props) => {
   return (
     <div>
       {dialogs.map((dialog) => {
-        return <div onClick={() => onSelect(dialog.id)}>{dialog.id}</div>
+        return (
+          <DialogCard
+            title={`Диалог ${dialog.id}`}
+            lastMessage={'Последние сообщение'}
+            onClick={() => onSelect(dialog.id)}
+          />
+        )
       })}
     </div>
   )
