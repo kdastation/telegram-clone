@@ -11,7 +11,13 @@ export const router = createBrowserRouter([
   {
     element: (
       <AppLoader>
-        <Outlet />
+        <div
+          style={{
+            height: '100vh',
+          }}
+        >
+          <Outlet />
+        </div>
       </AppLoader>
     ),
     children: [
