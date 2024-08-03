@@ -1,0 +1,13 @@
+.primary {
+  --background-color: var(--color-background-own-apple);
+}
+
+.secondary {
+  --background-color: var(--color-background);
+}
+
+.root {
+  border-radius: 5px;
+  padding: 4px 8px;
+  background-color: var(--background-color);
+}
